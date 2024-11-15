@@ -3,6 +3,7 @@ import torch
 from torch.utils import data
 from torch import nn
 
+#######################linear regression#######################
 
 def load_array(data_arrays, batch_size, is_train=True):
     """构造一个PyTorch数据迭代器"""
@@ -15,6 +16,15 @@ def load_array(data_arrays, batch_size, is_train=True):
     #shuffle=is_train表示是否在每个epoch重新打乱数据
 
 def linreg(features, labels, num_epochs, batch_size, learning_rate):
+    """
+    线性回归函数用于通过梯度下降方法求解线性回归问题
+    输入变量包括：
+    features:特征数据集
+    labels:标签数据集
+    num_epochs:训练轮次
+    batch_size:批次大小
+    learning_rate:学习率
+    """
     #data process
     data_iter = load_array((features, labels), batch_size)
     net = nn.Sequential(nn.Linear(len(features[0]), 1))
