@@ -19,8 +19,9 @@ hidden_size1 = 256  # 第一个隐藏层的神经元数量
 hidden_size2 = 128  # 第二个隐藏层的神经元数量
 num_classes = 10    # 输出类别数量（10种服装类别）
 num_epochs = 5      # 训练轮数
-batch_size = 100    # 每批处理的样本数
-learning_rate = 0.001  # 学习率
+batch_size = 256    # 每批处理的样本数
+learning_rate = 0.1  # 增大学习率，因为SGD通常需要更大的学习率
+momentum = 0.9      # 添加动量参数，帮助SGD更好地收敛
 
 # 定义数据预处理流程
 transform = transforms.Compose([
@@ -80,7 +81,11 @@ model = NeuralNet(input_size, hidden_size1, hidden_size2, num_classes)
 
 # 定义损失函数和优化器
 criterion = nn.CrossEntropyLoss()  # 交叉熵损失函数（内部包含softmax）
-optimizer = optim.Adam(model.parameters(), lr=learning_rate)  # Adam优化器
+optimizer = optim.SGD(
+    model.parameters(),    # 模型参数
+    lr=learning_rate,      # 学习率
+    momentum=momentum      # 动量参数
+)
 
 # 定义训练函数
 def train_model():
