@@ -121,6 +121,10 @@ def test_model():
         for images, labels in test_loader:  # 遍历测试集
             outputs = model(images)  # 获取模型预测结果
             _, predicted = torch.max(outputs.data, 1)  # 获取最大概率的类别
+            #outputs.data是输出结果，每一行对应一个样本在每一个类别上的概率
+            #dim=1表示在行维度上取最大的值 
+            #torch.max函数返回两个值，第一个值是最大值，第二个值是最大值的索引
+            #predicted是最大概率的类别索引，所以最终的结果是返回一个包括所有最大值索引的向量
             total += labels.size(0)  # 累加样本数
             correct += (predicted == labels).sum().item()  # 累加正确预测数
             
